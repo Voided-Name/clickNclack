@@ -4,6 +4,8 @@
 
   let name = $state("");
   let greetMsg = $state("");
+  let volume = "1";
+  let text = $state("");
   const keymap = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -43,10 +45,32 @@
     ["M", [2, 6]],
   ]);
 
+  let sound1 = new Howl({
+    src: ["sfx/keypress_01.mp3"],
+  });
+
+  let sound2 = new Howl({
+    src: ["sfx/keypress_02.mp3"],
+  });
+
+  let sound3 = new Howl({
+    src: ["sfx/keypress_03.mp3"],
+  });
+
+  let sound4 = new Howl({
+    src: ["sfx/keypress_04.mp3"],
+  });
+
+  const soundMap = [sound1, sound2, sound3, sound4];
+
   async function greet(event: Event) {
     event.preventDefault();
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     greetMsg = await invoke("greet", { name });
+  }
+
+  function handleVolumeChange(event: Event) {
+    Howler.volume(Number(volume));
   }
 
   function handleKeydown(e: KeyboardEvent) {
@@ -57,6 +81,8 @@
       }
       console.log("Spacebar pressed");
 
+      text = "";
+      soundMap[Math.floor(Math.random() * 4)].play();
       keySpace.classList.add("keypress-effect");
       keySpace.addEventListener(
         "animationend",
@@ -74,6 +100,10 @@
     if (!keyDiv) {
       return;
     }
+
+    text += e.key.toUpperCase();
+
+    soundMap[Math.floor(Math.random() * 4)].play();
 
     keyDiv.classList.add("keypress-effect");
 
@@ -95,6 +125,19 @@
     aria-label="keyboard input display"
     class="w-full flex flex-col gap-3 justify-center items-center"
   >
+    <p class="h-12">
+      {text}
+    </p>
+    <input
+      type="range"
+      tabindex="-1"
+      id="volume"
+      min="0"
+      max="1"
+      step="0.05"
+      bind:value={volume}
+      onchange={handleVolumeChange}
+    />
     {#each keymap as keyrow}
       <div class="w-full flex justify-center items-center gap-3">
         {#each keyrow as key}
