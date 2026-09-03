@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+.keypress-effect {
+  animation: keypress 200ms ease;
+}
+
+@keyframes keypress {
+  from {
+    background-color: black;
+  }
+
+  to {
+    background-color: white;
+  }
+}
