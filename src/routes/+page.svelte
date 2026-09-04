@@ -5,13 +5,13 @@
   let text = $state("");
 </script>
 
-<main class="flex w-screen h-screen justify-center items-center">
+<main class="flex w-screen h-screen justify-center items-center bg-slate-950">
   <div
     role="textbox"
     aria-label="keyboard input display"
     class="w-full flex flex-col gap-3 justify-center items-center"
   >
-    <p class="h-12">
+    <p class="h-12 text-slate-500">
       {text}
     </p>
     <Volume />

@@ -5,14 +5,17 @@
 
   function handleKeydown(e: KeyboardEvent) {
     const keySpace = document.getElementById("keySpace");
+
     if (e.key == " ") {
       if (!keySpace) {
         return;
       }
-      console.log("Spacebar pressed");
 
       text = "";
-      soundMap[Math.floor(Math.random() * 4)].play();
+
+      if (!e.repeat) {
+        soundMap[Math.floor(Math.random() * 4)].play();
+      }
       keySpace.classList.add("keypress-effect");
       keySpace.addEventListener(
         "animationend",
@@ -21,6 +24,15 @@
         },
         { once: true },
       );
+      return;
+    }
+
+    if (e.key == "Backspace") {
+      text = text.slice(0, -1);
+      if (!e.repeat) {
+        soundMap[Math.floor(Math.random() * 4)].play();
+      }
+
       return;
     }
 
@@ -33,7 +45,9 @@
 
     text += e.key.toUpperCase();
 
-    soundMap[Math.floor(Math.random() * 4)].play();
+    if (!e.repeat) {
+      soundMap[Math.floor(Math.random() * 4)].play();
+    }
 
     keyDiv.classList.add("keypress-effect");
 
@@ -51,7 +65,7 @@
   <div class="w-full flex justify-center items-center gap-3">
     {#each keyrow as key}
       <div
-        class="border-2 w-12 h-12 flex justify-center items-center"
+        class="border-2 w-12 h-12 flex justify-center items-center border-slate-300 text-slate-300"
         id={"key" + key}
       >
         {key}
@@ -59,7 +73,10 @@
     {/each}
   </div>
 {/each}
-<div id="keySpace" class="w-64 h-12 border-2 flex justify-center items-center">
+<div
+  id="keySpace"
+  class="w-64 h-12 border-2 flex justify-center items-center border-slate-300"
+>
   SPACE
 </div>
 
