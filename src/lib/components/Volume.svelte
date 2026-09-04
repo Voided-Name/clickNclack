@@ -15,5 +15,5 @@
   step="0.05"
   bind:value={volume}
   onchange={handleVolumeChange}
-  class="outline-none"
+  class="outline-none accent-orange-600 appearance-none bg-slate-800 h-2 rounded-full my-3"
 />

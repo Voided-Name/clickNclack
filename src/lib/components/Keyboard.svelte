@@ -1,7 +1,11 @@
 <script lang="ts">
   import { keymap, soundMap } from "../constants";
 
-  let { text = $bindable() } = $props();
+  let {
+    text = $bindable(),
+    spacedText = $bindable(),
+    spacedToggle = $bindable(),
+  } = $props();
 
   function handleKeydown(e: KeyboardEvent) {
     const keySpace = document.getElementById("keySpace");
@@ -11,6 +15,8 @@
         return;
       }
 
+      spacedText = text;
+      spacedToggle = !spacedToggle;
       text = "";
 
       if (!e.repeat) {
@@ -75,7 +81,7 @@
 {/each}
 <div
   id="keySpace"
-  class="w-64 h-12 border-2 flex justify-center items-center border-slate-300"
+  class="w-64 h-12 border-2 flex justify-center items-center border-slate-300 text-slate-300"
 >
   SPACE
 </div>

@@ -4,6 +4,10 @@
   animation: keypress 200ms ease;
 }
 
+.textPoof-effect {
+  animation: textPoof 200ms ease-out;
+}
+
 @keyframes keypress {
   from {
     background-color: black;
@@ -11,5 +15,17 @@
 
   to {
     background-color: white;
+  }
+}
+
+@keyframes textPoof {
+  from {
+    opacity: 1;
+    color: white;
+  }
+
+  to {
+    opacity: 0;
+    color: white;
   }
 }
